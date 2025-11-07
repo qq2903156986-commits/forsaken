@@ -1,0 +1,158 @@
+--Kenny泛滥外部汉化脚本我的哔站UID:1531514159（删了这个死妈死爹死全家）
+local Translations = {
+    ["Toggle"] = "切换",
+    ["Lock"] = "锁定",
+    ["Auto backstab"] = "自动背刺",
+    ["Main"] = "主界面",
+    ["Prediction"] = "预测",
+    ["Techs"] = "技巧",
+    ["Custom Anims"] = "自定义动画",
+    ["Misc"] = "杂项",
+    ["Settings"] = "设置",
+    ["Range (N)"] = "范围（数值）",
+    ["Range Mode"] = "范围模式",
+    ["stricter behind check"] = "更严格的背后检测",
+    ["Behind Distance"] = "背后距离",
+    ["Auto stab"] = "自动刺杀",
+    ["Backstab type"] = "背刺类型",
+    ["lerp"] = "线性插值",
+    ["lerp speed"] = "插值速度",
+    ["Aiming"] = "瞄准",
+    ["Delay Before Dagger"] = "匕首前延迟",
+    ["Enable Prediction"] = "启用预测",
+    ["Prediction Strength"] = "预测强度",
+    ["Prediction Time (s)"] = "预测时间（秒）",
+    ["Glide stab"] = "滑行刺",
+    ["GlideStab"] = "滑行刺（开关）",
+    ["aim at killers side"] = "瞄准杀手侧",
+    ["Type"] = "类型",
+    ["Legit"] = "合法（风格）",
+    ["Aiming Mode (only for glidestab)"] = "瞄准模式（仅适用于滑行刺）",
+    ["Character"] = "角色（模式）",
+    ["c00lgui (custom stamina and esp)"] = "炫酷界面（自定义耐力和实体显示）",
+    ["LungeStart"] = "突刺开始",
+    ["LungeLoop"] = "突刺循环",
+    ["LungeEnd"] = "突刺结束",
+    ["Ritual"] = "仪式（动画）",
+    ["Inject Anims"] = "注入动画",
+    ["Inject Anims before a round sta"] = "回合开始前注入动画",
+    ["CrouchStart"] = "蹲伏开始",
+    ["CrouchIdle"] = "蹲伏 idle",
+    ["CrouchWalk"] = "蹲伏行走",
+    ["CrouchRun"] = "蹲伏奔跑",
+    ["Stab"] = "刺杀（动画）",
+    ["Stuff"] = "杂项内容"
+}
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+--这下面填加载外部脚本
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/skibidi399/backstab-v3.1/refs/heads/main/script.lua"))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
