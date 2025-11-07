@@ -1,8 +1,6 @@
 --Kenny泛滥外部汉化脚本我的哔站UID:1531514159（删了这个死妈死爹死全家）
 local Translations = {
-    ["Toggle"] = "切换",
-    ["Lock"] = "锁定",
-    ["Auto backstab"] = "自动背刺",
+    ["Auto backstab"] = "自动背刺(汉化版)",
     ["Main"] = "主界面",
     ["Prediction"] = "预测",
     ["Techs"] = "技巧",
@@ -15,14 +13,14 @@ local Translations = {
     ["Behind Distance"] = "背后距离",
     ["Auto stab"] = "自动刺杀",
     ["Backstab type"] = "背刺类型",
-    ["lerp"] = "线性插值",
-    ["lerp speed"] = "插值速度",
+    ["lerp"] = "平滑的",
+    ["lerp speed"] = "平滑速度",
     ["Aiming"] = "瞄准",
     ["Delay Before Dagger"] = "匕首前延迟",
     ["Enable Prediction"] = "启用预测",
     ["Prediction Strength"] = "预测强度",
     ["Prediction Time (s)"] = "预测时间（秒）",
-    ["Glide stab"] = "滑行刺",
+    ["Glide stab"] = "滑行刺(功能)",
     ["GlideStab"] = "滑行刺（开关）",
     ["aim at killers side"] = "瞄准杀手侧",
     ["Type"] = "类型",
@@ -41,7 +39,17 @@ local Translations = {
     ["CrouchWalk"] = "蹲伏行走",
     ["CrouchRun"] = "蹲伏奔跑",
     ["Stab"] = "刺杀（动画）",
-    ["Stuff"] = "杂项内容"
+    ["Stuff"] = "杂项内容",
+    ["autobackstab"] = "自动背刺",
+    ["Auto Backstab"] = "自动背刺",
+    ["Be hind"] = "在后方",
+    ["Around"] = "环绕",
+    ["more things"] = "更多功能",
+    ["teleport"] = "传送",
+    ["just auto stab(if its on)"] = "仅自动刺杀（开启时）",
+    ["prediction"] = "预测",
+    ["Teleport"] = "传送",
+    ["Camera"] = "镜头"
 }
 
 local function translateText(text)
