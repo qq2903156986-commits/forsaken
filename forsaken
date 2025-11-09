@@ -32,8 +32,7 @@ local Translations = {
     ["LungeLoop"] = "突刺循环",
     ["LungeEnd"] = "突刺结束",
     ["Ritual"] = "仪式（动画）",
-    ["Inject Anims"] = "注入动画",
-    ["Inject Anims before a round sta"] = "回合开始前注入动画",
+    ["Inject Anims before a round start"] = "回合开始前注入动画",
     ["CrouchStart"] = "蹲伏开始",
     ["CrouchIdle"] = "蹲伏 idle",
     ["CrouchWalk"] = "蹲伏行走",
@@ -46,10 +45,12 @@ local Translations = {
     ["Around"] = "环绕",
     ["more things"] = "更多功能",
     ["teleport"] = "传送",
-    ["just auto stab(if its on)"] = "仅自动刺杀（开启时）",
+    ["just auto stab (if its on)"] = "仅自动刺杀（开启时）",
     ["prediction"] = "预测",
     ["Teleport"] = "传送",
-    ["Camera"] = "镜头"
+    ["Camera"] = "镜头",
+    ["misc"] = "杂项"
+    ["v3"] = "自动背刺v3版本"
 }
 
 local function translateText(text)
