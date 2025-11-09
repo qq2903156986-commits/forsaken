@@ -49,8 +49,9 @@ local Translations = {
     ["prediction"] = "预测",
     ["Teleport"] = "传送",
     ["Camera"] = "镜头",
-    ["misc"] = "杂项"
-    ["v3"] = "自动背刺v3版本"
+    ["misc"] = "杂项",
+    ["v3"] = "自动背刺v3版本",
+    ["behind mode will be stricter, means u have to be directly behind killer for it to backstab"] = "自动背刺功能生效会更严格，意味着你必须在杀手身后自动背刺功能才能生效"
 }
 
 local function translateText(text)
